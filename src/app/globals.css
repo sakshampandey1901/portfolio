@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-alabaster: #F7F5F0;
+  --color-espresso: #1A1614;
+  --color-terracotta: #C05746;
+  --color-blueprint: #4A6FA5;
+
+  --font-serif: var(--font-playfair), serif;
+  --font-sans: var(--font-inter), sans-serif;
+
+  --color-background: var(--color-alabaster);
+  --color-foreground: var(--color-espresso);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply font-sans antialiased selection:bg-blueprint selection:text-alabaster;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Hairline utilities */
+@layer utilities {
+  .hairline-b {
+    border-bottom: 1px solid var(--color-espresso);
+  }
+  .hairline-t {
+    border-top: 1px solid var(--color-espresso);
+  }
+  .hairline-l {
+    border-left: 1px solid var(--color-espresso);
+  }
+  .hairline-r {
+    border-right: 1px solid var(--color-espresso);
+  }
+  .hairline {
+    border: 1px solid var(--color-espresso);
+  }
 }
