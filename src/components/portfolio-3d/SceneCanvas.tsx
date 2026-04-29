@@ -19,9 +19,8 @@ function ProfileCard() {
   texture.minFilter = THREE.LinearMipmapLinearFilter;
   texture.magFilter = THREE.LinearFilter;
 
-  const aspect = texture.image
-    ? texture.image.width / texture.image.height
-    : 3 / 4;
+  const img = texture.image as HTMLImageElement | undefined;
+  const aspect = img ? img.width / img.height : 3 / 4;
 
   const cardHeight = Math.min(viewport.height * 0.55, 4.2);
   const cardWidth = cardHeight * aspect;

@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-alabaster: #F7F5F0;
-  --color-espresso: #1A1614;
-  --color-terracotta: #C05746;
-  --color-blueprint: #4A6FA5;
+  --color-void: #0a0a0a;
+  --color-carbon: #141414;
+  --color-graphite: #1c1c1c;
+  --color-slate: #2a2a2a;
+  --color-muted: #6b6b6b;
+  --color-cream: #f0ece4;
+  --color-white: #ffffff;
+  --color-lime: #c8ee44;
+  --color-coral: #ff6b4a;
 
-  --font-serif: var(--font-playfair), serif;
-  --font-sans: var(--font-inter), sans-serif;
+  --font-sans: var(--font-sans), "Space Grotesk", system-ui, sans-serif;
+  --font-display: var(--font-display), "Syne", system-ui, sans-serif;
 
-  --color-background: var(--color-alabaster);
-  --color-foreground: var(--color-espresso);
+  --color-background: var(--color-void);
+  --color-foreground: var(--color-cream);
 }
 
 @layer base {
@@ -22,29 +27,42 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    @apply font-sans antialiased selection:bg-blueprint selection:text-alabaster;
+    font-family: var(--font-sans);
+    @apply antialiased selection:bg-lime selection:text-void;
   }
 }
 
 @layer utilities {
-  .hairline-b {
-    border-bottom: 1px solid var(--color-espresso);
+  .border-subtle {
+    border-color: rgba(240, 236, 228, 0.08);
   }
-  .hairline-t {
-    border-top: 1px solid var(--color-espresso);
+
+  .border-medium {
+    border-color: rgba(240, 236, 228, 0.15);
   }
-  .hairline-l {
-    border-left: 1px solid var(--color-espresso);
+
+  .text-dim {
+    color: rgba(240, 236, 228, 0.45);
   }
-  .hairline-r {
-    border-right: 1px solid var(--color-espresso);
+
+  .text-soft {
+    color: rgba(240, 236, 228, 0.65);
   }
-  .hairline {
-    border: 1px solid var(--color-espresso);
-  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 }
