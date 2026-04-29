@@ -14,6 +14,16 @@
 }
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -21,7 +31,6 @@
   }
 }
 
-/* Hairline utilities */
 @layer utilities {
   .hairline-b {
     border-bottom: 1px solid var(--color-espresso);
