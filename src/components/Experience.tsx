@@ -29,7 +29,7 @@ export default function Experience() {
              className="grid grid-cols-1 md:grid-cols-12 p-6 md:p-12 hairline-b group hover:bg-blueprint hover:text-alabaster transition-colors duration-300"
           >
             <div className="md:col-span-3 font-sans text-sm tracking-widest uppercase opacity-70 mb-4 md:mb-0">
-               // {exp.timeline}
+               {exp.timeline}
             </div>
             <div className="md:col-span-6 font-serif text-3xl md:text-4xl uppercase tracking-tight text-espresso group-hover:text-alabaster transition-colors">
                {exp.company}

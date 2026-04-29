@@ -14,7 +14,7 @@ export default function Contact() {
     <section className="p-6 md:p-12 min-h-[30vh] flex flex-col justify-end">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
-          <h3 className="font-serif text-3xl mb-6 text-espresso">Let's Connect</h3>
+          <h3 className="font-serif text-3xl mb-6 text-espresso">Let&apos;s Connect</h3>
           <p className="font-sans text-base text-espresso/70 max-w-sm leading-relaxed mb-8">
             I am always open to discussing AI systems architecture, new projects, and full-time opportunities.
           </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail, MoveUpRight } from "lucide-react";
+import { GitFork, Link, Mail, MoveUpRight } from "lucide-react";
 
 const projects = [
   {
@@ -130,7 +130,7 @@ export default function HtmlOverlay() {
                 rel="noreferrer"
                 aria-label="GitHub"
               >
-                <Github className="size-5" />
+                <GitFork className="size-5" />
               </a>
               <a
                 className="grid size-12 place-items-center border border-espresso/25 bg-alabaster/60 transition hover:bg-espresso hover:text-alabaster"
@@ -139,7 +139,7 @@ export default function HtmlOverlay() {
                 rel="noreferrer"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="size-5" />
+                <Link className="size-5" />
               </a>
             </div>
           </div>
