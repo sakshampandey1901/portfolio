@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   GitFork,
-  Linkedin,
+  Link2,
   Mail,
   MoveUpRight,
 } from "lucide-react";
@@ -545,7 +545,7 @@ export default function HtmlOverlay() {
               {
                 label: "LinkedIn",
                 href: "https://linkedin.com/in/saksham-pandey-01515b286",
-                icon: <Linkedin className="size-5" />,
+                icon: <Link2 className="size-5" />,
               },
             ].map((link) => (
               <motion.a

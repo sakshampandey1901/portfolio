@@ -3,7 +3,7 @@ import SceneCanvas from "./SceneCanvas";
 
 export default function PortfolioExperience() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-alabaster">
+    <div className="relative min-h-screen overflow-x-hidden bg-void">
       <SceneCanvas />
       <HtmlOverlay />
     </div>

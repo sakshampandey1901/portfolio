@@ -22,9 +22,9 @@ function ProfileCard() {
   const img = texture.image as HTMLImageElement | undefined;
   const aspect = img ? img.width / img.height : 3 / 4;
 
-  const cardHeight = Math.min(viewport.height * 0.55, 4.2);
+  const cardHeight = Math.min(viewport.height * 0.48, 3.8);
   const cardWidth = cardHeight * aspect;
-  const cardDepth = 0.12;
+  const cardDepth = 0.1;
 
   useEffect(() => {
     const proxy = rotationProxy.current;
@@ -32,12 +32,8 @@ function ProfileCard() {
     const ctx = gsap.context(() => {
       /*
        * SCROLL-LINKED 360° ROTATION
-       * trigger / scroller — the HTML scroll container
-       * start / end        — full document scroll range
-       * scrub               — 1:1 tie between scroll position and rotation
-       *
-       * To change the rotation speed, adjust the `y` value in the tween.
-       * Math.PI * 2 = one full 360° turn. Use Math.PI * 4 for two full turns, etc.
+       * Math.PI * 2 = one full 360° turn.
+       * Adjust `scrub` for tighter/looser scroll coupling.
        */
       gsap.to(proxy, {
         y: Math.PI * 2,
@@ -58,55 +54,37 @@ function ProfileCard() {
   useFrame(({ clock }) => {
     if (!meshRef.current) return;
     meshRef.current.rotation.y = rotationProxy.current.y;
-    meshRef.current.position.y = Math.sin(clock.getElapsedTime() * 0.8) * 0.06;
+    meshRef.current.position.y =
+      Math.sin(clock.getElapsedTime() * 0.7) * 0.05;
   });
+
+  const edgeMat = (
+    <meshStandardMaterial color="#1a1a1a" metalness={0.7} roughness={0.22} />
+  );
 
   return (
     <mesh ref={meshRef} castShadow receiveShadow>
       <boxGeometry args={[cardWidth, cardHeight, cardDepth]} />
-      {/*
-        Six faces of the box: +x, -x, +y, -y, +z (front), -z (back).
-        We map the profile texture to the front (+z) and back (-z) faces
-        and give the remaining four edge faces a dark material.
-      */}
       {[
-        <meshStandardMaterial
-          key="edge-right"
-          color="#1a1614"
-          metalness={0.6}
-          roughness={0.28}
-        />,
-        <meshStandardMaterial
-          key="edge-left"
-          color="#1a1614"
-          metalness={0.6}
-          roughness={0.28}
-        />,
-        <meshStandardMaterial
-          key="edge-top"
-          color="#1a1614"
-          metalness={0.6}
-          roughness={0.28}
-        />,
-        <meshStandardMaterial
-          key="edge-bottom"
-          color="#1a1614"
-          metalness={0.6}
-          roughness={0.28}
-        />,
+        /* +x */ edgeMat,
+        /* -x */ edgeMat,
+        /* +y */ edgeMat,
+        /* -y */ edgeMat,
+        /* +z front */
         <meshStandardMaterial
           key="front"
           map={texture}
-          metalness={0.05}
-          roughness={0.45}
-          envMapIntensity={0.3}
+          metalness={0.08}
+          roughness={0.4}
+          envMapIntensity={0.25}
         />,
+        /* -z back */
         <meshStandardMaterial
           key="back"
           map={texture}
-          metalness={0.05}
-          roughness={0.45}
-          envMapIntensity={0.3}
+          metalness={0.08}
+          roughness={0.4}
+          envMapIntensity={0.25}
         />,
       ]}
     </mesh>
@@ -115,36 +93,44 @@ function ProfileCard() {
 
 export default function SceneCanvas() {
   return (
-    <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
+    <div
+      aria-hidden="true"
+      className="fixed inset-0 z-0 pointer-events-none"
+    >
       <Canvas
         shadows
         dpr={[1, 2]}
         camera={{ position: [0, 0, 5.5], fov: 36 }}
-        gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping }}
+        gl={{
+          antialias: true,
+          alpha: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 0.95,
+        }}
       >
-        <color attach="background" args={["#f7f5f0"]} />
-        <fog attach="fog" args={["#f7f5f0", 8, 14]} />
+        <color attach="background" args={["#0a0a0a"]} />
+        <fog attach="fog" args={["#0a0a0a", 7, 13]} />
 
-        <ambientLight intensity={0.8} />
+        <ambientLight intensity={0.5} color="#e8e4dc" />
         <directionalLight
           castShadow
-          position={[4, 5, 4]}
-          intensity={2.4}
+          position={[3, 4.5, 4]}
+          intensity={2.0}
           shadow-mapSize={[1024, 1024]}
-          color="#fffaf0"
+          color="#fff8ee"
         />
         <spotLight
           position={[-3, 3, 5]}
           angle={0.4}
-          penumbra={0.9}
-          intensity={1.6}
-          color="#fff8ee"
+          penumbra={0.85}
+          intensity={1.2}
+          color="#c8ee44"
         />
-        <pointLight position={[0, -3, 3]} intensity={0.4} color="#e8ddd0" />
+        <pointLight position={[0, -2.5, 3]} intensity={0.3} color="#e0ddd4" />
 
         <Suspense fallback={null}>
           <ProfileCard />
-          <Environment preset="city" environmentIntensity={0.35} />
+          <Environment preset="night" environmentIntensity={0.2} />
         </Suspense>
       </Canvas>
     </div>
