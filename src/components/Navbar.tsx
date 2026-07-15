@@ -1,15 +1,19 @@
 import { useState } from 'react';
 
-const NAV_LINKS = ['Work, Download Resume, Github'];
+const NAV_LINKS = ['Work', 'Download Resume', 'Github'];
 
 const BAR_CLASSES = 'h-[2px] w-6 bg-black transition-all duration-300';
 
-export default function Navbar() {
+export default function Navbar({ hidden }: { hidden: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-10 flex w-full items-center justify-between px-5 py-4 sm:px-8 sm:py-5">
+      <header
+        className={`fixed top-0 left-0 z-10 flex w-full items-center justify-between px-5 py-4 transition-opacity duration-500 sm:px-8 sm:py-5 ${
+          hidden ? 'pointer-events-none opacity-0' : 'opacity-100'
+        }`}
+      >
         <a href="/" className="flex items-center gap-3">
           <span
             className="text-[21px] tracking-tight text-black sm:text-[26px]"
