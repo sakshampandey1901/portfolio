@@ -3,7 +3,6 @@ import VideoStage from './components/VideoStage';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import PhotoToggle from './components/PhotoToggle';
-import TvOverlay from './components/TvOverlay';
 import type { SectionId } from './data/sections';
 
 const PHOTO_STORAGE_KEY = 'tv-photo-mode';
@@ -33,15 +32,15 @@ export default function App() {
 
   return (
     <>
-      <VideoStage focused={focused} photoVisible={photoOn} />
-      <Navbar hidden={focused} />
-      <Hero hidden={focused} onSelectSection={setActiveSection} />
-      <PhotoToggle on={photoOn} onChange={setPhotoMode} hidden={focused} />
-      <TvOverlay
+      <VideoStage
         activeSection={activeSection}
         onSelectSection={setActiveSection}
         onExit={() => setActiveSection(null)}
+        photoVisible={photoOn}
       />
+      <Navbar hidden={focused} />
+      <Hero hidden={focused} onSelectSection={setActiveSection} />
+      <PhotoToggle on={photoOn} onChange={setPhotoMode} hidden={focused} />
     </>
   );
 }
