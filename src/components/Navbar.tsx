@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const NAV_LINKS = ['Labs', 'Studio', 'Openings', 'Shop'];
+const NAV_LINKS = ['Work, Download Resume, Github'];
 
 const BAR_CLASSES = 'h-[2px] w-6 bg-black transition-all duration-300';
 

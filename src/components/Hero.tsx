@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import useTypewriter from '../hooks/useTypewriter';
 
-const EMAIL = 'hello@mainframe.co';
+const EMAIL = 'pandeysaksham450@gmail.com';
 
 const TYPEWRITER_TEXT =
-  'Glad you stopped in. Good taste tends to find us. Now, what are we building?';
+  'Glad you stopped in. I am Saksham Pandey, a Full Stack Developer diving deeper towards understanding Machine Learning'; 
 
 const ACTION_LABELS = [
-  'Pitch us an idea',
-  'Come work here',
-  'Send a brief hello',
-  'See how we operate',
+  'A little about me',
+  'Professional Experiences',
+  'Projects I have worked on',
+  'Github Profile',
 ];
 
 const PILL_BASE =
