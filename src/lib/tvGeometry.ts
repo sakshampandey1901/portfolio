@@ -53,13 +53,45 @@ export function focusPanelRect(vw: number, vh: number): Rect | null {
   return { left: (vw - width) / 2, top: (vh - height) / 2, width, height };
 }
 
+function zoomScale(panel: Rect, glass: Rect) {
+  return Math.max(panel.width / glass.width, panel.height / glass.height);
+}
+
 /** CSS transform that zooms the stage so the TV glass lands on the focus panel. */
 export function stageTransform(vw: number, vh: number, scrubFraction: number): string {
   const panel = focusPanelRect(vw, vh);
   if (!panel) return 'none';
   const glass = tvScreenRect(vw, vh, scrubFraction);
-  const scale = Math.max(panel.width / glass.width, panel.height / glass.height);
+  const scale = zoomScale(panel, glass);
   const tx = panel.left + panel.width / 2 - (glass.left + glass.width / 2) * scale;
   const ty = panel.top + panel.height / 2 - (glass.top + glass.height / 2) * scale;
   return `translate(${tx}px, ${ty}px) scale(${scale})`;
+}
+
+export interface BroadcastLayout {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  scale: number;
+}
+
+/**
+ * Layout for the broadcast layer that lives inside the stage: content is laid
+ * out at full panel size and counter-scaled down onto the glass, so the stage
+ * zoom cancels the scale exactly (net 1:1) and text lands crisp on the panel.
+ * Null below the breakpoint — the mobile fallback skips the zoom entirely.
+ */
+export function broadcastLayout(vw: number, vh: number, scrubFraction: number): BroadcastLayout | null {
+  const panel = focusPanelRect(vw, vh);
+  if (!panel) return null;
+  const glass = tvScreenRect(vw, vh, scrubFraction);
+  const scale = zoomScale(panel, glass);
+  return {
+    left: glass.left + glass.width / 2 - panel.width / (2 * scale),
+    top: glass.top + glass.height / 2 - panel.height / (2 * scale),
+    width: panel.width,
+    height: panel.height,
+    scale: 1 / scale,
+  };
 }
