@@ -28,6 +28,7 @@ export default function Hero({ hidden, onSelectSection }: HeroProps) {
 
   return (
     <section
+      inert={hidden}
       className={`relative z-[1] flex h-screen flex-col justify-end overflow-hidden px-5 pb-12 transition-opacity duration-500 sm:px-8 md:justify-center md:px-10 md:pb-0 ${
         hidden ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}

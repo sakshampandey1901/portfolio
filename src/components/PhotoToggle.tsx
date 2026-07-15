@@ -12,6 +12,7 @@ export default function PhotoToggle({ on, onChange, hidden }: PhotoToggleProps) 
       role="switch"
       aria-checked={on}
       onClick={() => onChange(!on)}
+      inert={hidden}
       className={`fixed right-5 bottom-5 z-10 flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1.5 text-[12px] tracking-wide text-black uppercase backdrop-blur-sm transition-opacity duration-500 sm:right-8 sm:bottom-6 ${
         hidden ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}

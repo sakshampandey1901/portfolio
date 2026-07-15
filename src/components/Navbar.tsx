@@ -10,6 +10,7 @@ export default function Navbar({ hidden }: { hidden: boolean }) {
   return (
     <>
       <header
+        inert={hidden}
         className={`fixed top-0 left-0 z-10 flex w-full items-center justify-between px-5 py-4 transition-opacity duration-500 sm:px-8 sm:py-5 ${
           hidden ? 'pointer-events-none opacity-0' : 'opacity-100'
         }`}
@@ -62,8 +63,9 @@ export default function Navbar({ hidden }: { hidden: boolean }) {
       </header>
 
       <div
+        inert={!menuOpen || hidden}
         className={`fixed inset-0 z-[9] flex flex-col justify-center gap-8 bg-white/95 px-8 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          menuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+          menuOpen && !hidden ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       >
         {NAV_LINKS.map((link) => (
