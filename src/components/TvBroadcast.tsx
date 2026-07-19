@@ -53,8 +53,15 @@ export default function TvBroadcast({
       aria-label="Saksham Pandey — portfolio"
       tabIndex={-1}
       inert={!open}
-      className={`tv-scanlines relative flex h-full w-full flex-col overflow-hidden bg-[#101210] text-[#e8e6df] outline-none ${
-        framed ? 'rounded-xl border-8 border-[#d6d2c8]' : 'rounded-2xl ring-1 ring-black/40'
+      // Slight translucency lets the tube behind ghost through; the glass
+      // corner radius matches the photo overlay so the picture reads as
+      // emitted by the CRT rather than a card placed on it.
+      style={{
+        boxShadow: 'inset 0 0 60px rgba(0,0,0,0.55)',
+        ...(framed ? {} : { borderRadius: '6% / 9%' }),
+      }}      className={`tv-scanlines relative flex h-full w-full flex-col overflow-hidden bg-[#0d0f0d] text-[#e8e6df] outline-none ${
+        framed ? 'rounded-xl border-8 border-[#d6d2c8]' : ''
+
       } ${
         open
           ? 'animate-[power-on_450ms_ease-out] motion-reduce:animate-none'
@@ -96,6 +103,7 @@ export default function TvBroadcast({
           className="tv-static pointer-events-none absolute inset-0 opacity-0 animate-[static-flash_160ms_steps(3,end)] motion-reduce:hidden"
         />
       </div>
+      <div aria-hidden="true" className="tv-glass" />
     </div>
   );
 }
