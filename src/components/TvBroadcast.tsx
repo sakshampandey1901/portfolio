@@ -57,23 +57,24 @@ export default function TvBroadcast({
       // corner radius matches the photo overlay so the picture reads as
       // emitted by the CRT rather than a card placed on it.
       style={{
-        boxShadow: 'inset 0 0 60px rgba(0,0,0,0.55)',
+        boxShadow: 'inset 0 0 60px rgba(0,0,0,0.35)',
+        fontFamily: "'Geist', 'Helvetica Neue', Arial, sans-serif",
         ...(framed ? {} : { borderRadius: '6% / 9%' }),
-      }}      className={`tv-scanlines relative flex h-full w-full flex-col overflow-hidden bg-[#0d0f0d] text-[#e8e6df] outline-none ${
+      }}
+      className={`tv-scanlines-light relative flex h-full w-full flex-col overflow-hidden bg-white text-[#242424] outline-none ${
         framed ? 'rounded-xl border-8 border-[#d6d2c8]' : ''
-
       } ${
         open
           ? 'animate-[power-on_450ms_ease-out] motion-reduce:animate-none'
           : 'pointer-events-none opacity-0 transition-opacity duration-300 motion-reduce:transition-none'
       }`}
     >
-      <header className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-2.5 sm:px-5">
+      <header className="flex items-center justify-between gap-3 border-b border-[#e0e0e0] px-4 py-2.5 sm:px-5">
         <button
           type="button"
           onClick={onExit}
           aria-label="Exit TV view (Escape)"
-          className="rounded-full px-2.5 py-1 text-[12px] tracking-wider whitespace-nowrap text-white/70 uppercase transition-colors hover:bg-white/10 hover:text-white sm:text-[13px]"
+          className="rounded-full px-2.5 py-1 text-[12px] tracking-wider whitespace-nowrap text-[#9e9e9e] uppercase transition-colors hover:bg-black/5 hover:text-[#242424] sm:text-[13px]"
         >
           ← Exit
         </button>
@@ -85,7 +86,9 @@ export default function TvBroadcast({
               onClick={() => onSelectSection(id)}
               aria-current={id === section ? 'page' : undefined}
               className={`rounded-full px-2.5 py-1 text-[11px] tracking-wider uppercase transition-colors sm:text-[13px] ${
-                id === section ? 'bg-white/15 text-white' : 'text-white/55 hover:text-white'
+                id === section
+                  ? 'bg-[#242424] text-white'
+                  : 'text-[#9e9e9e] hover:text-[#242424]'
               }`}
             >
               {tabLabel}

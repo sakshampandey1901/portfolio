@@ -96,3 +96,28 @@ body {
     transparent 1px 3px
   );
 }
+
+/* Scanlines variant for the light-theme interior. */
+.tv-scanlines-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.025) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* Scroll-reveal entrance: elements fall 30 px into place while fading in. */
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
