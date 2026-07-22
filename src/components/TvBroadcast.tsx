@@ -59,7 +59,7 @@ export default function TvBroadcast({
       style={{
         boxShadow: 'inset 0 0 60px rgba(0,0,0,0.35)',
         fontFamily: "'Geist', 'Helvetica Neue', Arial, sans-serif",
-        ...(framed ? {} : { borderRadius: '6% / 9%' }),
+        ...(framed ? {} : { borderRadius: '5% / 12%' }),
       }}
       className={`tv-scanlines-light relative flex h-full w-full flex-col overflow-hidden bg-white text-[#242424] outline-none ${
         framed ? 'rounded-xl border-8 border-[#d6d2c8]' : ''
