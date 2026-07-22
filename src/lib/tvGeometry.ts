@@ -35,7 +35,7 @@ export const FOCUS_IMAGE = {
   objectPositionX: 0.5,
   objectPositionY: 0.5,
   /** CRT screen on the monitor; tune with ?tv-debug=1. */
-  glass: { x: 0.14, y: 0.10, width: 0.78, height: 0.54 },
+  glass: { x: 0.14, y: 0.08, width: 0.78, height: 0.54 },
 } as const;
 
 const PANEL_VIEWPORT_SHARE = 0.8;

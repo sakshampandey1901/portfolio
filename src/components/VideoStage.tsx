@@ -16,7 +16,7 @@ const VIDEO_URL =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4';
 
 const SENSITIVITY = 0.8;
-const ZOOM_MS = 800;
+const ZOOM_MS = 500;
 
 function useTvDebug() {
   const [enabled, setEnabled] = useState(false);
@@ -232,7 +232,7 @@ export default function VideoStage({
       >
         {/* tv-focus.png zoomed so its CRT aligns with the panel the video zoomed into */}
         <div
-          className="absolute inset-0 origin-top-left overflow-hidden bg-black"
+          className="absolute inset-0 origin-top-left overflow-hidden bg-neutral-900"
           style={{ transform: focusImgTransform }}
         >
           <img
