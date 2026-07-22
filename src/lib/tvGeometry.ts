@@ -38,10 +38,9 @@ export const FOCUS_IMAGE = {
   glass: { x: 0.14, y: 0.10, width: 0.78, height: 0.54 },
 } as const;
 
-/** Below this viewport width the zoom is skipped and the panel goes full screen. */
-export const FOCUS_BREAKPOINT = 768;
-
 const PANEL_VIEWPORT_SHARE = 0.8;
+const MOBILE_PANEL_VIEWPORT_SHARE = 0.92;
+const MOBILE_BREAKPOINT = 768;
 
 const FOCUS_PANEL_ASPECT =
   (FOCUS_IMAGE.glass.width * FOCUS_IMAGE.width) /
@@ -144,12 +143,13 @@ export function focusImageScreenRect(vw: number, vh: number): Rect {
   );
 }
 
-function focusPanelRect(vw: number, vh: number, panelAspect: number): Rect | null {
-  if (vw < FOCUS_BREAKPOINT) return null;
-  const width = Math.min(vw * PANEL_VIEWPORT_SHARE, vh * PANEL_VIEWPORT_SHARE * panelAspect);
+function focusPanelRect(vw: number, vh: number, panelAspect: number): Rect {
+  const isMobile = vw < MOBILE_BREAKPOINT;
+  const share = isMobile ? MOBILE_PANEL_VIEWPORT_SHARE : PANEL_VIEWPORT_SHARE;
+  const width = Math.min(vw * share, vh * share * panelAspect);
   const height = width / panelAspect;
   return {
-    left: (vw - width) / 2 + FOCUS_PANEL_NUDGE_X,
+    left: (vw - width) / 2 + (isMobile ? 0 : FOCUS_PANEL_NUDGE_X),
     top: (vh - height) / 2,
     width,
     height,
@@ -163,7 +163,6 @@ function zoomScale(panel: Rect, glass: Rect) {
 /** Zoom the focus still so the CRT screen lands on the centered panel. */
 export function focusImageStageTransform(vw: number, vh: number): string {
   const panel = focusPanelRect(vw, vh, FOCUS_PANEL_ASPECT);
-  if (!panel) return 'none';
   const glass = focusImageScreenRect(vw, vh);
   const scale = zoomScale(panel, glass);
   const tx = panel.left + panel.width / 2 - (glass.left + glass.width / 2) * scale;
@@ -180,9 +179,8 @@ export interface BroadcastLayout {
 }
 
 /** Counter-scaled broadcast layer on the focus still's CRT screen. */
-export function focusImageBroadcastLayout(vw: number, vh: number): BroadcastLayout | null {
+export function focusImageBroadcastLayout(vw: number, vh: number): BroadcastLayout {
   const panel = focusPanelRect(vw, vh, FOCUS_PANEL_ASPECT);
-  if (!panel) return null;
   const glass = focusImageScreenRect(vw, vh);
   const scale = zoomScale(panel, glass);
   return {
@@ -204,7 +202,6 @@ export function videoStageTransform(
   frame: VideoFrameSize = DEFAULT_VIDEO_FRAME,
 ): string {
   const panel = focusPanelRect(vw, vh, FOCUS_PANEL_ASPECT);
-  if (!panel) return 'none';
   const glass = tvScreenRect(vw, vh, 0, frame);
   const scale = zoomScale(panel, glass);
   const tx = panel.left + panel.width / 2 - (glass.left + glass.width / 2) * scale;
@@ -216,6 +213,6 @@ export function videoStageTransform(
  * The focus panel rect in viewport coordinates — used to position the broadcast
  * inside the overlay (which sits outside the zoomed stage, so no counter-scale needed).
  */
-export function focusOverlayRect(vw: number, vh: number): Rect | null {
+export function focusOverlayRect(vw: number, vh: number): Rect {
   return focusPanelRect(vw, vh, FOCUS_PANEL_ASPECT);
 }

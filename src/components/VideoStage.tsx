@@ -158,15 +158,17 @@ export default function VideoStage({
       activeSection={activeSection}
       onSelectSection={onSelectSection}
       onExit={onExit}
-      framed={!overlayLayout}
+      framed={false}
     />
   );
 
   return (
     <>
-      {/* Stage: video only — zooms into the CRT on focus (phase 1). */}
+      {/* Stage: video only — zooms into the CRT on focus (phase 1), hidden once overlay is up. */}
       <div
-        className="fixed inset-0 z-0 origin-top-left transition-transform duration-[800ms] ease-[cubic-bezier(0.33,0,0.15,1)] motion-reduce:transition-none"
+        className={`fixed inset-0 z-0 origin-top-left transition-transform duration-[800ms] ease-[cubic-bezier(0.33,0,0.15,1)] motion-reduce:transition-none ${
+          overlayShown ? 'invisible' : ''
+        }`}
         style={{ transform, transitionDuration: `${ZOOM_MS}ms` }}
       >
         <video
@@ -230,7 +232,7 @@ export default function VideoStage({
       >
         {/* tv-focus.png zoomed so its CRT aligns with the panel the video zoomed into */}
         <div
-          className="absolute inset-0 origin-top-left overflow-hidden"
+          className="absolute inset-0 origin-top-left overflow-hidden bg-black"
           style={{ transform: focusImgTransform }}
         >
           <img
@@ -242,21 +244,17 @@ export default function VideoStage({
         </div>
 
         {/* Broadcast content sits at the panel rect on top of the zoomed image */}
-        {overlayLayout ? (
-          <div
-            className="absolute"
-            style={{
-              left: overlayLayout.left,
-              top: overlayLayout.top,
-              width: overlayLayout.width,
-              height: overlayLayout.height,
-            }}
-          >
-            {broadcast}
-          </div>
-        ) : (
-          <div className="absolute inset-x-3 inset-y-12">{broadcast}</div>
-        )}
+        <div
+          className="absolute"
+          style={{
+            left: overlayLayout.left,
+            top: overlayLayout.top,
+            width: overlayLayout.width,
+            height: overlayLayout.height,
+          }}
+        >
+          {broadcast}
+        </div>
       </div>
     </>
   );
